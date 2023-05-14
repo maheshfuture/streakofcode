@@ -1,1 +1,90 @@
+date==14/5/23
+Maximize Score After N Operations
 
+You are given nums, an array of positive integers of size 2 * n. You must perform n operations on this array.
+
+In the ith operation (1-indexed), you will:
+
+Choose two elements, x and y.
+Receive a score of i * gcd(x, y).
+Remove x and y from nums.
+Return the maximum score you can receive after performing n operations.
+
+The function gcd(x, y) is the greatest common divisor of x and y.
+
+ 
+
+Example 1:
+
+Input: nums = [1,2]
+Output: 1
+Explanation: The optimal choice of operations is:
+(1 * gcd(1, 2)) = 1
+Example 2:
+
+Input: nums = [3,4,6,8]
+Output: 11
+Explanation: The optimal choice of operations is:
+(1 * gcd(3, 6)) + (2 * gcd(4, 8)) = 3 + 8 = 11
+Example 3:
+
+Input: nums = [1,2,3,4,5,6]
+Output: 14
+Explanation: The optimal choice of operations is:
+(1 * gcd(1, 5)) + (2 * gcd(2, 4)) + (3 * gcd(3, 6)) = 1 + 4 + 9 = 14
+ 
+
+Constraints:
+
+1 <= n <= 7
+nums.length == 2 * n
+1 <= nums[i] <= 106
+solution:
+class Solution {
+public:
+    int maxScore(vector<int>& nums) {
+        int n = nums.size();
+        
+        
+        vector<vector<int>> gcdMatrix(n, vector<int>(n));
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                gcdMatrix[i][j] = gcdMatrix[j][i] = gcd(nums[i], nums[j]);
+            }
+        }
+        
+        
+        vector<int> dp(1 << n);
+        
+        
+        for (int state = 1; state < (1 << n); state++) {
+            
+            int cnt = __builtin_popcount(state);
+            
+            
+            if (cnt % 2 == 1) {
+                continue;
+            }
+            
+            
+            for (int i = 0; i < n; i++) {
+                if ((state & (1 << i)) == 0) {
+                    continue;
+                }
+                for (int j = i + 1; j < n; j++) {
+                    if ((state & (1 << j)) == 0) {
+                        continue;
+                    }
+                    int nextState = state ^ (1 << i) ^ (1 << j);
+                    dp[state] = max(dp[state], dp[nextState] + cnt / 2 * gcdMatrix[i][j]);
+                }
+            }
+        }
+        
+        return dp[(1 << n) - 1];
+    }
+    
+    int gcd(int a, int b) {
+        return b == 0 ? a : gcd(b, a % b);
+    }
+};
