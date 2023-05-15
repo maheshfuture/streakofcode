@@ -104,3 +104,69 @@ int main() {
         cout << "2" << endl;
     return 0;
 }
+day3 15-05-23
+Gift Hunter
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+Rahul is a gift lover he is currently located at {0, 0} in an n*m grid and the gift is located at {k, l}, given a string that contains characters {L, R, D, U}, the string represents path taken by Rahul, tell whether he will reach {k, l} at any point of time. L means left, R means right, U means up and D means down.
+Assuming (x,y) is the initial point, here's how L,R, D, and U works in a grid:
+
+L (Left): moves to (x-1, y)
+R (Right): moves to (x+1, y)
+D (Down): moves to (x, y-1)
+U (Up): moves to (x, y+1)
+Input
+The first line contains two integers k, l the position of the gift.
+The second line contains the string, path taken by Rahul.
+0≤{k, l}≤105
+2≤|s|≤103
+Output
+Output a single string "YES" or "NO".
+Example
+Input:
+1 1
+UR
+Output :
+YES
+Explanation :
+After U it moves to - > {0, 1} and then R moves to - >{1, 1}. So, we print YES.
+solution:-
+#include <iostream>
+using namespace std;
+
+bool willReachGift(int k, int l, string path) {
+    int x = 0, y = 0; 
+    for (char c : path) {
+        if (c == 'L') {
+            x--; // Move left
+        } else if (c == 'R') {
+            x++; // Move right
+        } else if (c == 'D') {
+            y--; // Move down
+        } else if (c == 'U') {
+            y++; // Move up
+        }
+
+        if (x == k && y == l) {
+            return true;
+        }
+    }
+
+    return false; 
+}
+
+int main() {
+    int k, l;
+    cin >> k >> l;
+    string path;
+    cin >> path;
+
+    if (willReachGift(k, l, path)) {
+        cout << "YES" << endl;
+    } else {
+        cout << "NO" << endl;
+    }
+
+    return 0;
+}
