@@ -170,3 +170,95 @@ int main() {
 
     return 0;
 }
+
+8-7-2023
+OddSum
+Problem Statement
+You are given a number N. You have to print "8" S times where S is the sum of odd digits in the number N.
+It is guaranteed that there will be at least one odd digit in the number N.
+Input
+The first line of the input contains an integer N.
+
+Constraints
+1 ≤ N ≤ 109
+Output
+Print "8" the required number of times.
+Example
+Sample Input
+423
+Sample Output
+888
+Explanation
+The sum of the odd digits = 3, therefore you have to print 8 thrice.
+
+solution--
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+void printEights(int n) {
+    int sumOfOdds = 0;
+    while (n > 0) {
+        int digit = n % 10;
+        if (digit % 2 != 0) {
+            sumOfOdds += digit;
+        }
+        n /= 10;
+    }
+
+    string eights(sumOfOdds, '8');
+    cout << eights << endl;
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    printEights(n);
+
+    return 0;
+}
+
+9-7-2023
+Odd-Even Game
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+Rahul and Abhilash are playing a game. They are given a number N at the beginning and both in their turn have to choose a number X such that
+1 ≤ X ≤ N
+If its Rahul's turn, X has to be even, but if its Abhilashs' turn, it has to be odd
+After each turn, N becomes N - X. The player who is not able to choose any number in his turn loses. Find out who wins, if both play optimally and Rahul starts the game.
+Input
+The first line of the input contains a single integer N.
+
+Constraints
+1 ≤ N ≤ 109
+Output
+Print "Rahul" if he wins else print "Abhilash".
+Example
+Sample Input
+2
+
+Sample Output
+Rahul
+
+Explanation
+Rahul chooses 2 and subtracts it from N. In Abhilashs' turn N is 0 and there is no odd positive integer less than 0, so he loses.
+
+solution--
+#include <iostream>
+using namespace std;
+
+int main() {
+    int N;
+    cin >> N;
+
+    if (N % 2 == 0) {
+        cout << "Rahul" << endl;
+    } else {
+        cout << "Abhilash" << endl;
+    }
+
+    return 0;
+}
