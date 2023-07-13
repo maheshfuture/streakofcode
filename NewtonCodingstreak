@@ -262,3 +262,55 @@ int main() {
 
     return 0;
 }
+
+13-07-23
+Odd Even product
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+You are given a positive number N. You have to print the product of the sum of odd digits and even digits in the number.
+Input
+The first line of the input contains an integer N.
+
+Constraints
+1 ≤ N ≤ 109
+Output
+Print the required product.
+Example
+Sample Input
+241
+Sample Output
+6
+Explanation
+The sum of odd digits=1.
+The sum of even digits = 2+4 = 6.
+Product= 1*6 = 6.
+
+solution--
+#include <iostream>
+using namespace std;
+int oddEvenProduct(int n) {
+    int oddSum = 0;
+    int evenSum = 0;
+
+    while (n > 0) {
+        int digit = n % 10;
+        if (digit % 2 == 0) {
+            evenSum += digit;
+        } else {
+            oddSum += digit;
+        }
+        n /= 10;
+    }
+
+    return oddSum * evenSum;
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    cout << oddEvenProduct(n) << endl;
+
+    return 0;
+}
