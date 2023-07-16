@@ -314,3 +314,55 @@ int main() {
 
     return 0;
 }
+
+16-07-2023
+Count Different Bits
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+Count the number of differing bits between two given numbers, n, and m.
+Input
+The first line of input contains two space-separated integers n and m.
+
+Constraints:-
+1 ≤ n, m ≤ 109
+Output
+Print the number of differing bits between two given numbers, n, and m.
+Example
+Sample Input 1:
+3 7
+
+Sample Output 1:
+1
+
+Explanation 1:
+Binary representation of 3 = 011,
+Binary representation of 7 = 111,
+So, Only 1 bit is different in these numbers.
+
+solution--
+#include <bits/stdc++.h> 
+using namespace std;
+
+int countDifferingBits(int n, int m) {
+    int xorResult = n ^ m;
+
+    int differingBits = 0;
+    while (xorResult > 0) {
+        differingBits += xorResult & 1;
+        xorResult >>= 1;
+    }
+
+    return differingBits;
+}
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+
+    int result = countDifferingBits(n, m);
+
+    cout << result << std::endl;
+
+    return 0;
+}
