@@ -366,3 +366,48 @@ int main() {
 
     return 0;
 }
+
+Burger Distribution
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+Abhilash buys N number of burgers and he wants to distribute all the N burgers among his 10 friends such that:
+Each friend gets at least one burger
+There is at least one case where No two friends get the same number of burgers
+
+Check Whether Abhilash will be able to distribute or not according to the given rules.
+Input
+The only line contains an integer N.
+
+Constraints
+1 ≤ N ≤ 1000
+Output
+Print(without quotes) "yes" if Abhilash can divide the burgers according to the given rules, else print "no".
+Example
+Sample Input
+18
+
+Sample Output
+no
+
+Explanation
+There is no case that Abhilash can distribute burgers by following the given rule.
+
+solution--
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int N;
+    cin >> N;
+
+    if (N < 20 || N % 10 == 0 || N % 10 > 9) {
+        cout << "no" << endl;
+    } else {
+        cout << "yes" << endl;
+    }
+
+    return 0;
+}
+
