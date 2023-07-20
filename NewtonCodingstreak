@@ -411,3 +411,42 @@ int main() {
     return 0;
 }
 
+20-7-23
+Coin Distribution
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+Rahul has n coins worth 1 rupee each, and he has m friends. He wants to distribute an equal number of coins to each of his friends. Determine whether it is possible for Rahul to distribute the coins equally among all his friends or not.
+Input
+The first line of input contains two space- separated integers n and m.
+
+Constraints:-
+1 ≤ n, m ≤ 1000
+Output
+Print true if it is possible for Rahul to distribute the coins equally among all his friends, otherwise false.
+Example
+Sample Input 1:
+16 8
+
+Sample Output 1:
+true
+
+Explanation 1:
+Since he has the capability to distribute 2 coins to each of his friends, therefore true.
+
+solution-
+#include <iostream>
+using namespace std;
+
+bool canDistributeCoinsEqually(int n, int m) {
+    return n % m == 0;
+}
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+
+    cout << (canDistributeCoinsEqually(n, m) ? "true" : "false") << endl;
+
+    return 0;
+}
