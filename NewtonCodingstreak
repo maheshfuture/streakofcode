@@ -450,3 +450,51 @@ int main() {
 
     return 0;
 }
+
+23-07-23
+Odd-sum
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+You are given three integers a, b, and c. Your task is to find out if you can choose two integers such that their sum is odd.
+Input
+The first line of the input contains three space-separated integers denoting a, b, and c
+Constraints
+1 ≤ a, b, c ≤ 100
+Output
+Print YES if you can choose two integers such that their sum is odd else print NO.
+Example
+Sample Input
+70 25 26
+
+Sample Output
+YES
+
+Explanation
+You can choose 25 and 26.
+25 + 26 = 51. (odd)
+
+solution--
+#include <iostream>
+using namespace std;
+string can_select_odd_sum(int a, int b, int c) {
+    int combinations[3][2] = {{a, b}, {a, c}, {b, c}};
+
+    for (int i = 0; i < 3; i++) {
+        int x = combinations[i][0];
+        int y = combinations[i][1];
+        if ((x + y) % 2 != 0) { 
+            return "YES";       
+        }
+    }
+
+    return "NO";  
+}
+
+int main() {
+  int n,m,r;
+  cin>>n>>m>>r;
+    cout << can_select_odd_sum(n, m, r) << endl;    
+
+    return 0;
+}
