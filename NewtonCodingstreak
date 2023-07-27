@@ -498,3 +498,68 @@ int main() {
 
     return 0;
 }
+
+Frequency LCM
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+Find the least common multiple (LCM) of the frequencies of all characters in a given string 's'.
+Input
+The first line of input contains string 's'.
+
+Constraints:-
+1 ≤ s. length ≤ 100
+The string 's' consists only of lowercase English letters.
+Output
+Print the least common multiple (LCM) of the frequencies of all characters in a given string 's'.
+Example
+Sample Input 1:
+abca
+
+Sample Output 1:
+2
+
+Explanation 1:
+frequency of 'a' = 2,
+frequency of 'b' = 1,
+frequency of 'c' = 1,
+LCM(2, 1, 1) = 2.
+solution--
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+
+int lcm(int a, int b) {
+    return (a * b) / gcd(a, b);
+}
+
+int frequency_lcm(const string& s) {
+    unordered_map<char, int> freq_map;
+    
+    for (char c : s) {
+        freq_map[c]++;
+    }
+
+    int lcm_freq = 1;
+    for (const auto& pair : freq_map) {
+        lcm_freq = lcm(lcm_freq, pair.second);
+    }
+
+    return lcm_freq;
+}
+
+int main() {
+    string s;
+    cin >> s;
+
+    int result = frequency_lcm(s);
+    cout << result << endl;
+
+    return 0;
+}
