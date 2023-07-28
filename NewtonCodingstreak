@@ -563,3 +563,44 @@ int main() {
 
     return 0;
 }
+
+Distinct GCD
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+You are a genius at maths and Newton decided to check your knowledge so he gave you three integers N, X, and Y. You have to construct an array a1, a2,... , aN (X ≤ ai ≤ Y) such that GCD (i, ai) for 1 ≤ i ≤ N are all distinct. Print YES if it is possible to do so else print NO.
+Input
+The first line of the input contains three space-separated integers denoting N, X, and Y.
+
+Constraints
+1 ≤ N ≤ 105
+1 ≤ X ≤ Y ≤ 109
+Output
+Print YES if it is possible to construct the array else print NO.
+Example
+Sample Input
+5 1 5
+Sample Output
+YES
+Explanation
+You can choose the elements of the array as 1, 2, 3, 4, 5, therefore, GCD(i, ai) will be 1, 2, 3, 4, 5 which are all distinct.
+
+solution--
+#include <iostream>
+using namespace std;
+
+string can_construct_array(int N, int X, int Y) {
+    int max_distinct_gcds = N;
+    int max_possible_value = X + N - 1;
+    return (Y >= max_possible_value) ? "YES" : "NO";
+}
+
+int main() {
+    int N, X, Y;
+    cin >> N >> X >> Y;
+
+    string result = can_construct_array(N, X, Y);
+    cout << result << endl;
+
+    return 0;
+}
