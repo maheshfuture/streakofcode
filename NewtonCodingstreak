@@ -656,3 +656,41 @@ int main() {
 
     return 0;
 }
+
+Wondering Yash
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+Yash has been given a number 'n' and he wants to determine how many numbers can divide 'n' without leaving any remainder.
+Input
+The first line of input contains a single integer n.
+
+Constraints:-
+1 ≤ n ≤ 106
+Output
+Print the count of numbers that can divide 'n' without leaving a remainder.
+Example
+Sample Input 1:
+8
+
+Sample Output 1:
+4
+
+Explanation 1:
+numbers that can divide 'n' without leaving a remainder = 1, 2, 4, 8.
+Thus, count = 4.#include <bits/stdc++.h> // header file includes every Standard library
+using namespace std;
+
+int main() {
+	// Your code here
+    int count=0;
+    int n;
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        if(n%i==0) count++;
+    }
+  
+  cout<<count<<endl;
+
+    return 0;
+}
