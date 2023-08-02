@@ -694,3 +694,39 @@ int main() {
 
     return 0;
 }
+
+Candy Robbery
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+Rahul is a robber who intends to steal candies from a shop. He possesses a bag with a capacity of n kg, while the shop contains m kg of candies.
+
+Determine whether Rahul can successfully steal all the candies or not.
+Input
+The first line of input contains two space-separated integers n and m.
+
+Constraints:-
+1 ≤ n, m ≤ 1000
+Output
+Print true if Rahul can successfully steal all the candies, otherwise false.
+Example
+Sample Input 1:
+16 8
+
+Sample Output 1:
+true
+
+Explanation 1:
+true, As he can steal candies up to 16 kg but the shop has only 8 kg of candies.
+
+#include <bits/stdc++.h> // header file includes every Standard library
+using namespace std;
+
+int main() {
+	// Your code here
+    int n,m;
+    cin>>n>>m;
+    if(n>=m) cout<<"true"<<endl;
+    else cout<<"false"<<endl;
+    return 0;
+}
