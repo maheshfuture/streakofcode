@@ -730,3 +730,58 @@ int main() {
     else cout<<"false"<<endl;
     return 0;
 }
+
+Unique Consonants
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+Count the number of unique consonants in the given string 's'.
+Input
+The First line of input contains the string 's'.
+
+Constraints:-
+1 ≤ s. length ≤ 105
+The variable 's' consists exclusively of lowercase English letters.
+Output
+Print the number of unique consonants in a given string 's'.
+Example
+Sample Input 1:
+aabbe
+
+Sample Output 1:
+1
+
+Explanation 1:
+As there is only one distinct consonant present in the string 's', which is 'b'.
+
+solution--
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isConsonant(char c) {
+    string consonants = "bcdfghjklmnpqrstvwxyz";
+    return (consonants.find(tolower(c)) != string::npos);
+}
+
+int countUniqueConsonants(const string& s) {
+    unordered_set<char> uniqueConsonants;
+    
+    for (char c : s) {
+        if (isConsonant(c)) {
+            uniqueConsonants.insert(tolower(c));
+        }
+    }
+    
+    return uniqueConsonants.size();
+}
+
+int main() {
+    string input;
+    cin >> input;
+    
+    int uniqueConsonantCount = countUniqueConsonants(input);
+    
+    cout << uniqueConsonantCount << endl;
+    
+    return 0;
+}
