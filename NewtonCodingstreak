@@ -785,3 +785,60 @@ int main() {
     
     return 0;
 }
+
+
+Unique Vowels
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+Count the number of unique vowels in a given string 's'.
+Input
+The First line of input contains string 's'.
+
+Constraints:-
+1 ≤ s.length ≤ 105
+The variable 's' consists exclusively of lowercase English letters.
+Output
+Print the number of unique vowels in a given string 's'.
+Example
+Sample Input 1:
+aabbe
+
+Sample Output 1:
+2
+
+Explanation 1:
+As there are only two distinct vowels present in string 's', which are 'a' and 'e'.
+
+solution--
+
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isVowels(char c) {
+    string consonants = "aeiou";
+    return (consonants.find(tolower(c)) != string::npos);
+}
+
+int countUniqueConsonants(const string& s) {
+    unordered_set<char> uniqueConsonants;
+    
+    for (char c : s) {
+        if (isVowels(c)) {
+            uniqueConsonants.insert(tolower(c));
+        }
+    }
+    
+    return uniqueConsonants.size();
+}
+
+int main() {
+    string input;
+    cin >> input;
+    
+    int uniqueConsonantCount = countUniqueConsonants(input);
+    
+    cout << uniqueConsonantCount << endl;
+    
+    return 0;
+}
