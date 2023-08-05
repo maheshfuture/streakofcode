@@ -842,3 +842,38 @@ int main() {
     
     return 0;
 }
+
+
+PM Laptop Yojna
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+Rahul has recently received his class X exam results, and Prime Minister Modi announced that students who have scored at least 80% marks will be provided with a laptop. Today is the day of result declaration, and Rahul has achieved a score of n%. Determine whether Rahul will be eligible to receive a laptop based on his score.
+Input
+The first line of input contains a single integer n.
+
+Constraints:-
+1 ≤ n ≤ 100
+Output
+Print true if Rahul will be eligible to receive a laptop based on his score., otherwise false.
+Example
+Sample Input 1:
+85
+
+Sample Output 1:
+true
+
+Explanation 1:
+Since he got 85% that is more than the required, therefore true.
+
+#include <bits/stdc++.h> // header file includes every Standard library
+using namespace std;
+
+int main() {
+	// Your code here
+    int num;
+    cin>>num;
+    if(num>=80) cout<<"true"<<endl;
+    else cout<<"false"<<endl;
+    return 0;
+}
