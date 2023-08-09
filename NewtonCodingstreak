@@ -1008,6 +1008,50 @@ int main() {
         }
     }
 
+
+Check if power of 2
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+Determine whether a given number, x, is a power of 2.
+Follow up :
+Can you do it in O(1) time and O(1) space?
+Input
+The first and only line of input contains a single integer x.
+Constraints
+0<=x<=1018
+Output
+Print "true" without quotes if x is a power of 2 otherwise "false"
+Example
+Sample Input
+8
+Sample Output
+true
+
+Explaination
+Since 8 can be represented as 23 hence the output is true.
+
+
+#include <iostream>
+using namespace std;
+bool isPowerOfTwo(long long x) {
+    return x > 0 && (x & (x - 1)) == 0;
+}
+
+int main() {
+    long long x;
+    cin >> x;
+
+    if (isPowerOfTwo(x)) {
+        cout << "true" << endl;
+    } else {
+        cout << "false" << endl;
+    }
+
+    return 0;
+}
+
+
     cout << person << endl;
 
     return 0;
