@@ -1461,3 +1461,105 @@ Output: 14
         }
         return v[n];
     }
+
+Next Smallest Palindrome
+Given a number, in the form of an array Num[] of size N containing digits from 1 to 9(inclusive). The task is to find the next smallest palindrome strictly larger than the given number.
+
+Example 1:
+
+Input:
+N = 11
+Num[] = {9, 4, 1, 8, 7, 9, 7, 8, 3, 2, 2}
+Output: 9 4 1 8 8 0 8 8 1 4 9
+Explanation: Next smallest palindrome is
+94188088149.
+Example 2:
+
+Input:
+N = 5
+Num[] = {2, 3, 5, 4, 5}
+Output: 2 3 6 3 2
+Explanation: Next smallest palindrome is
+23632.
+Your Task:
+Complete the function generateNextPalindrome() which takes an array num, and an single integer n, as input parameters and returns an array of integers denoting the answer. You don't to print answer or take inputs.
+
+Expected Time Complexity: O(N)
+Expected Auxiliary Space: O(1)
+
+Constraints:
+1 <= N <= 105
+1 <= Num[i] <= 9
+
+class Solution{
+public:
+ 
+ 
+bool ispalindrome(vector<int>a ,int s,int e)
+{
+    while(s<=e)
+    {
+        if(a[s]!=a[e])
+        return false;
+        s++;
+        e--;
+    }
+}
+ 
+void addone(vector<int>&a,int e)
+{
+    int carry=1;
+    
+    while(carry && (e+1))
+    {
+       int sum=a[e]+carry;
+        carry=sum/10;
+        sum=sum%10;
+        a[e]=sum;
+        e--;
+    }
+   if (carry > 0)
+   {
+            a.push_back(carry);
+            reverse(a.begin(), a.end());
+    }
+}
+vector<int> generateNextPalindrome(int num[], int n) 
+{
+   bool b=false;
+   vector<int>v;
+ 
+   for (int i = 0; i <n; i++)
+        {
+            v.push_back(num[i]);
+        }
+        
+        if(ispalindrome(v,0,v.size()-1))
+        {
+            addone(v,v.size()-1);
+        }
+        
+        while(!b)
+        {
+           int s=0,e=v.size()-1;
+           while(s<=e)
+          {
+            while(v[s]!=v[e])
+             {
+               if(v[s]>v[e])
+               v[e]=v[s];
+               else
+               {
+                   v[e]=v[s];
+                   addone(v,e-1);
+               }
+            }
+            s++;
+            e--;
+          }
+          b=ispalindrome(v,0,v.size()-1);
+        }
+        return v;
+}
+ 
+};
