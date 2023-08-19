@@ -2509,3 +2509,148 @@ public:
         return maximal;
     }
 };
+
+class UnionFind {    
+    vector<int> parent, rank;
+public:
+    UnionFind(int n) : parent(n), rank(n, 1) {
+        for (int i = 0; i < n; i++) 
+            parent[i] = i;
+    }
+
+    // Find the root of a given element
+    int Find(int x) {
+        return (x == parent[x]) ? x : parent[x] = Find(parent[x]);
+    }
+
+    // Union of two elements
+    void Union(int x, int y) {
+        int rootX = Find(x), rootY = Find(y);
+        if (rootX == rootY) return;
+        if (rank[rootX] > rank[rootY]) swap(rootX, rootY);   
+        parent[rootX] = rootY;
+        if (rank[rootX] == rank[rootY]) rank[rootY]++;
+    }
+
+    // Check if two elements are connected
+    bool connected(int x, int y) {
+        return Find(x) == Find(y);
+    }
+};
+
+1489. Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree
+Given a weighted undirected connected graph with n vertices numbered from 0 to n - 1, and an array edges where edges[i] = [ai, bi, weighti] represents a bidirectional and weighted edge between nodes ai and bi. A minimum spanning tree (MST) is a subset of the graph's edges that connects all vertices without cycles and with the minimum possible total edge weight.
+
+Find all the critical and pseudo-critical edges in the given graph's minimum spanning tree (MST). An MST edge whose deletion from the graph would cause the MST weight to increase is called a critical edge. On the other hand, a pseudo-critical edge is that which can appear in some MSTs but not all.
+
+Note that you can return the indices of the edges in any order.
+
+ 
+
+Example 1:
+
+
+
+Input: n = 5, edges = [[0,1,1],[1,2,1],[2,3,2],[0,3,2],[0,4,3],[3,4,3],[1,4,6]]
+Output: [[0,1],[2,3,4,5]]
+Explanation: The figure above describes the graph.
+The following figure shows all the possible MSTs:
+
+Notice that the two edges 0 and 1 appear in all MSTs, therefore they are critical edges, so we return them in the first list of the output.
+The edges 2, 3, 4, and 5 are only part of some MSTs, therefore they are considered pseudo-critical edges. We add them to the second list of the output.
+Example 2:
+
+
+
+Input: n = 4, edges = [[0,1,1],[1,2,1],[2,3,1],[0,3,1]]
+Output: [[],[0,1,2,3]]
+Explanation: We can observe that since all 4 edges have equal weight, choosing any 3 edges from the given 4 will yield an MST. Therefore all 4 edges are pseudo-critical.
+ 
+
+Constraints:
+
+2 <= n <= 100
+1 <= edges.length <= min(200, n * (n - 1) / 2)
+edges[i].length == 3
+0 <= ai < bi < n
+1 <= weighti <= 1000
+All pairs (ai, bi) are distinct.
+
+class Solution {
+public:
+    int e;
+
+    int Kruskal(int n, vector<vector<int>>& edges, vector<int>& MST, int removal = -1, int inclusive = -1) {
+        UnionFind uf(n);
+        int totalWeight = 0;
+        int edgesChosen = 0;
+
+        if (inclusive != -1) {
+            auto& edge = edges[inclusive];
+            uf.Union(edge[2], edge[3]);
+            edgesChosen++;
+            totalWeight += edge[0];
+            MST.push_back(inclusive);
+        }
+
+        for(int i = 0; i < e; i++) {
+            auto& edge = edges[i];
+            if (i == removal || i == inclusive) continue;
+            if (uf.Find(edge[2]) == uf.Find(edge[3])) continue;
+            uf.Union(edge[2], edge[3]);
+            edgesChosen++;
+            totalWeight += edge[0];
+            MST.push_back(i);
+        }
+
+        return (edgesChosen != n - 1) ? INT_MAX : totalWeight; // Check if disconnected
+    }
+
+    vector<vector<int>> findCriticalAndPseudoCriticalEdges(int n, vector<vector<int>>& edges) {
+        e = edges.size();
+
+        // Reorder edges for sorting
+        for(int i = 0; i < e; i++) {
+            vector<int>& edge = edges[i];
+            vector<int> reorderedEdge = {edge[2], i, edge[0], edge[1]};
+            edge = reorderedEdge;
+        }
+
+        // Sort edges by weight
+        sort(edges.begin(), edges.end());
+
+        vector<int> MST; // Minimal Spanning Tree
+        int minWeight = Kruskal(n, edges, MST);
+
+        vector<int> critical;
+        vector<bool> isCritical(e, false), isPseudoCritical(e, false);
+
+        // Identify critical and pseudo-critical edges
+        for(int j : MST) {
+            int edgeIndex = edges[j][1];
+            vector<int> mst;
+            int withoutEdge = Kruskal(n, edges, mst, j, -1);
+            if (minWeight < withoutEdge) {
+                critical.push_back(edgeIndex);
+                isCritical[edgeIndex] = true;
+            } else if (minWeight == withoutEdge) {
+                for(int k : mst) isPseudoCritical[edges[k][1]] = true;
+            }
+        }
+
+        vector<int> pseudoCritical;
+        for(int j = 0; j < e; j++) {
+            int edgeIndex = edges[j][1];
+            int withEdge;
+            if (!isPseudoCritical[edgeIndex]) {
+                MST.clear();
+                withEdge = Kruskal(n, edges, MST, -1, j);
+            }
+            if ((isPseudoCritical[edgeIndex] || minWeight == withEdge) && !isCritical[edgeIndex]) {
+                pseudoCritical.push_back(edgeIndex);
+            }
+        }
+
+        return {critical, pseudoCritical};
+    }
+};
