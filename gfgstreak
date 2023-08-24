@@ -1781,3 +1781,24 @@ class Solution
         return ans;
     } 
 };
+Multiply two strings
+Given two numbers as strings s1 and s2. Calculate their Product.
+
+Note: The numbers can be negative and You are not allowed to use any built-in function or convert the strings to integers. There can be zeros in the begining of the numbers.
+
+Example 1:
+
+Input:
+s1 = "0033"
+s2 = "2"
+Output:
+66
+Example 2:
+
+Input:
+s1 = "11"
+s2 = "23"
+Output:
+253
+
+return new BigInteger(s1).multiply(new BigInteger(s2)).toString();
