@@ -1149,3 +1149,50 @@ int main() {
 
     return 0;
 }
+
+Different characters
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+You are given two strings a and b. Your task is to find the number of indices where string a differs from string b. (Note: Strings are case insensitive i. e. Hello is same as hELLo).
+Input
+The input consists of two lines:
+
+The first line contains string a (1 <= |a| <= 10^4), representing the first string.
+The second line contains string b (|b| = |a|), representing the second string.
+Output
+Print an integer, the count of places where the two strings differ.
+Example
+Input
+a = "NewtonSchool"
+b = "newrOnTshool"
+
+Output
+3
+
+Explanation
+The strings differ at index 3, 6 and 7. Hence the output is 3.
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    string a, b;
+    cin>>a>>b;
+
+    transform(a.begin(), a.end(), a.begin(), ::tolower);
+    transform(b.begin(), b.end(), b.begin(), ::tolower);
+
+    int count = 0;
+
+    for (size_t i = 0; i < a.length(); ++i) {
+        if (a[i] != b[i]) {
+            ++count;
+        }
+    }
+
+    cout <<count << endl;
+
+    return 0;
+}
+
