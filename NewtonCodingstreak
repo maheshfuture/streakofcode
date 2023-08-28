@@ -1196,3 +1196,193 @@ int main() {
     return 0;
 }
 
+Difference between nums
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+Given three integers (num1, num2, num3), you need to determine whether one of the numbers is the difference between the other two numbers. If such a number exists, return "Yes". Otherwise, return "No". (Note: Output is case sensitive).
+Input
+The only line of the input contains three space separated integers representing num1, num2 and num3.
+
+Constraints
+-10^9 ≤ num1 ≤ 10^9
+-10^9 ≤ num2 ≤ 10^9
+-10^9 ≤ num3 ≤ 10^9
+Output
+Print "Yes" if one of the numbers is the difference between the other two numbers, otherwise return "No".
+Example
+Input:
+15 7 8
+
+Output:
+Yes
+
+Explanation:
+Since the difference between 15 and 7 is 8, which is the third number.
+So the answer is "Yes".
+
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+    int num1, num2, num3;
+    cin >> num1 >> num2 >> num3;
+
+    if (num1 == num2 + num3 || num2 == num1 + num3 || num3 == num1 + num2) {
+        cout << "Yes" << endl;
+    } else if (num1 == abs(num2 - num3) || num2 == abs(num1 - num3) || num3 == abs(num1 - num2)) {
+        cout << "Yes" << endl;
+    } else {
+        cout << "No" << endl;
+    }
+
+    return 0;
+}
+
+Total gift pairs
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+Problem Statement
+In a gift store, you have won a coupon with a coupon number. This coupon can be used to purchase pairs of gifts, and it provides a discount on pairs of gifts whose sum is a multiple of the coupon number. You are given a list of n gifts with their respective costs. Your task is to find the total number of pairs of gifts that you can purchase using the coupon to get a discount.
+Input
+The first line contains an integer n representing the size of gifts list.
+The second line contains a list of n positive integers representing the cost of each gift
+The third line contains a single integer representing the coupon number.
+
+
+Constraints
+1 <= n <= 106
+1 ≤ gifts[i] ≤ 105
+1 ≤ coupon_number ≤ 105
+Output
+Print an integer representing the total number of pairs of gifts that can be purchased using the coupon to get a discount.
+Example
+Input:
+5
+5 7 9 10 15
+5
+
+
+Output:
+3
+
+Explanation:
+In the example, the pairs of gifts with sums divisible by 5 are:
+(5, 10)
+(5, 15)
+(10, 15)
+
+So, the total number of such pairs is 3.
+
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+int main() {
+    int n; // Number of gifts
+    cin >> n;
+
+    vector<int> giftCosts(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> giftCosts[i];
+    }
+
+    int couponNumber;
+    cin >> couponNumber;
+
+    unordered_map<int, int> remainderFrequency;
+
+    for (int i = 0; i < n; ++i) {
+        int remainder = giftCosts[i] % couponNumber;
+        remainderFrequency[remainder]++;
+    }
+
+    int countPairs = 0;
+
+    for (const auto& pair : remainderFrequency) {
+        int remainder = pair.first;
+        int frequency = pair.second;
+
+        if (remainder == 0 || 2 * remainder == couponNumber) {
+            countPairs += frequency * (frequency - 1) / 2;
+        } else if (remainderFrequency.count(couponNumber - remainder) > 0) {
+            // Pairs where gifts have complementary remainders
+            countPairs += frequency * remainderFrequency[couponNumber - remainder];
+            remainderFrequency[remainder] = 0; // Mark remainder as used
+            remainderFrequency[couponNumber - remainder] = 0; // Mark complementary remainder as used
+        }
+    }
+
+    cout << countPairs << endl;
+
+    return 0;
+}
+
+
+
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// int main() {
+//     int n; // Number of gifts
+//     cin >> n;
+
+//     vector<int> giftCosts(n);
+//     for (int i = 0; i < n; ++i) {
+//         cin >> giftCosts[i];
+//     }
+
+//     int couponNumber;
+//     cin >> couponNumber;
+
+//     int countPairs = 0;
+
+//     for (int i = 0; i < n; ++i) {
+//         for (int j = i + 1; j < n; ++j) {
+//             if ((giftCosts[i] + giftCosts[j]) % couponNumber == 0) {
+//                 countPairs++;
+//             }
+//         }
+//     }
+
+//     cout << countPairs << endl;
+
+//     return 0;
+// }
+
+
+
+
+
+// #include <bits/stdc++.h> // header file includes every Standard library
+// using namespace std;
+
+// int main() {
+// 	// Your code here
+//     int n;
+//     cin>>n;
+//     vector<int> arr(n);
+//     for(int i=0;i<n;i++){
+//         cin>>arr[i];
+//     }
+//     int x;
+//     cin>>x;
+//     int cnt=-1;
+//     for(int i=0;i<n;i++){
+//         if(arr[i]%x !=0){ arr.pop_back();
+//         }
+//         else {
+//             cnt++;
+//         }
+//     }
+//     cout<<(cnt * (cnt+1))/2;
+
+    
+//     return 0;
+// }
