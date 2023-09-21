@@ -1386,3 +1386,48 @@ int main() {
     
 //     return 0;
 // }
+
+Divisibility Transformation
+Time Limit: 2, Memory Limit: 128000
+You are given an array A of size N. In one move, you can choose any index i and either decrease or increase the element on that index by 1. Find the minimum number of moves required to make all elements in the array divisible by K.
+Input
+The first line of the input contains two integers N and K.
+The second line of the input contains N space seperated integers.
+
+Constraints:
+1 <= N <= 105
+1 <= Ai <= 109
+1 <= K <=109
+Output
+Print the minimum number of moves required to make all elements in the array divisible by K.
+Example
+Sample Input:
+6 3
+7 3 4 8 5 1
+
+Sample Output:
+5
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int N, K;
+    cin >> N >> K;
+    int total_moves = 0;
+
+    for (int i = 0; i < N; i++) {
+        int element;
+        cin >> element;
+
+        int remainder = element % K;
+        int moves_needed = min(remainder, K - remainder);
+
+        total_moves += moves_needed;
+    }
+
+    cout << total_moves << endl;
+
+    return 0;
+}
+
