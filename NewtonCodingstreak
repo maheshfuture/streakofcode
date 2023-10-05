@@ -1560,3 +1560,35 @@ int main() {
 
     return 0;
 }
+
+Sports Event
+Time Limit: 2, Memory Limit: 128000
+A sporting event is held in June of every year, whose remainder when divided by 4 is 2.
+Suppose that it is now January of the year Y. In what year will this sport event be held next time?
+Input
+The input consists of a single integer.
+Y
+
+Constraints
+2000≤Y≤3000
+Y is an integer.
+
+#include <bits/stdc++.h> // header file includes every Standard library
+using namespace std;
+
+int solve(int n){
+    if(n%4==2){
+        return n;
+    }
+    else{
+         return solve(n+1);
+    }
+}
+int main() {
+	// Your code here
+    int n;
+    cin>>n;
+    cout<<solve(n);
+    return 0;
+}
+
